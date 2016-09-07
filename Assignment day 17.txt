@@ -1,0 +1,122 @@
+
+1.) mysql> explain major;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| id            | int(11)     | NO   | PRI | NULL    | auto_increment |
+| description   | varchar(50) | NO   |     | NULL    |                |
+| min_sat_score | int(11)     | YES  |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from major;
++----+------------------+---------------+
+| id | description      | min_sat_score |
++----+------------------+---------------+
+|  1 | General Business |           800 |
+|  3 | Education        |           900 |
+|  4 | Accounting       |          1000 |
+|  5 | Finance          |          1100 |
+|  6 | Math             |          1300 |
+|  7 | Engineering      |          1350 |
+|  8 | General Studies  |           500 |
++----+------------------+---------------+
+
+============================================================================
+============================================================================
+
+2.) mysql> explain instructor;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| id             | int(11)     | NO   | PRI | NULL    | auto_increment |
+| First_Name     | varchar(30) | YES  |     | NULL    |                |
+| Last_Name      | varchar(30) | YES  |     | NULL    |                |
+| Yrs_Experience | int(11)     | YES  |     | NULL    |                |
+| Tenure         | tinyint(4)  | YES  |     | NULL    |                |
+| major_id       | int(11)     | YES  | MUL | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+============================================================================
+============================================================================
+
+3.)mysql> explain class;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| id            | int(11)     | NO   | PRI | NULL    | auto_increment |
+| description   | varchar(30) | YES  |     | NULL    |                |
+| level         | int(11)     | YES  |     | NULL    |                |
+| instructor_id | int(11)     | YES  | MUL | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from class;
++----+------------------+-------+---------------+
+| id | description      | level | instructor_id |
++----+------------------+-------+---------------+
+|  1 | English          |   101 |          NULL |
+|  2 | English          |   102 |          NULL |
+|  3 | English          |   103 |          NULL |
+|  4 | English          |   201 |          NULL |
+|  5 | English          |   202 |          NULL |
+|  6 | English          |   203 |          NULL |
+|  7 | English          |   301 |          NULL |
+|  8 | English          |   302 |          NULL |
+|  9 | English          |   303 |          NULL |
+| 19 | Math             |   201 |          NULL |
+| 20 | Math             |   202 |          NULL |
+| 21 | Math             |   203 |          NULL |
+| 22 | Math             |   204 |          NULL |
+| 23 | Math             |   301 |          NULL |
+| 24 | Math             |   302 |          NULL |
+| 25 | Math             |   303 |          NULL |
+| 26 | Math             |   304 |          NULL |
+| 27 | History          |   101 |          NULL |
+| 28 | History          |   201 |          NULL |
+| 29 | History          |   301 |          NULL |
+| 30 | Computer Science |   311 |          NULL |
+| 31 | Computer Science |   312 |          NULL |
+| 32 | Computer Science |   313 |          NULL |
+| 33 | Computer Science |   441 |          NULL |
+| 34 | Computer Science |   442 |          NULL |
+| 35 | Computer Science |   443 |          NULL |
+| 36 | Psychology       |   101 |          NULL |
+| 37 | Psychology       |   102 |          NULL |
+| 38 | Psychology       |   231 |          NULL |
+| 39 | Psychology       |   232 |          NULL |
+| 40 | Education        |   221 |          NULL |
+| 41 | Education        |   222 |          NULL |
+| 42 | Education        |   223 |          NULL |
+| 43 | Education        |   351 |          NULL |
+| 44 | Education        |   352 |          NULL |
+| 45 | Education        |   353 |          NULL |
++----+------------------+-------+---------------+
+36 rows in set (0.00 sec)
+
+=============================================================
+=============================================================
+
+4.) mysql> explain major_class_relationship;
++----------+---------+------+-----+---------+----------------+
+| Field    | Type    | Null | Key | Default | Extra          |
++----------+---------+------+-----+---------+----------------+
+| id       | int(11) | NO   | PRI | NULL    | auto_increment |
+| major_id | int(11) | NO   | MUL | NULL    |                |
+| class_id | int(11) | NO   | MUL | NULL    |                |
++----------+---------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+===============================================================
+===============================================================
+
+5.) mysql> explain student_class_relationship;
++------------+---------+------+-----+---------+----------------+
+| Field      | Type    | Null | Key | Default | Extra          |
++------------+---------+------+-----+---------+----------------+
+| id         | int(11) | NO   | PRI | NULL    | auto_increment |
+| student_id | int(11) | NO   | MUL | NULL    |                |
+| class_id   | int(11) | NO   | MUL | NULL    |                |
++------------+---------+------+-----+---------+----------------+
+3 rows in set (0.02 sec)
