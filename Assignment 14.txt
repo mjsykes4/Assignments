@@ -1,0 +1,342 @@
+
+1.) mysql> explain major;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| id            | int(11)     | NO   | PRI | NULL    | auto_increment |
+| description   | varchar(50) | NO   |     | NULL    |                |
+| min_sat_score | int(11)     | YES  |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+
+
+mysql> select * from major;
++----+------------------+---------------+
+| id | description      | min_sat_score |
++----+------------------+---------------+
+|  1 | General Business |           800 |
+|  2 | Education        |           900 |
+|  3 | Accounting       |          1000 |
+|  4 | Finance          |          1100 |
+|  5 | Math             |          1300 |
+|  6 | Engineering      |          1350 |
+|  7 | General Studies  |           500 |
++----+------------------+---------------+
+
+============================================================================
+============================================================================
+
+2.) mysql> explain instructor;
++----------------+-------------+------+-----+---------+----------------+
+| Field          | Type        | Null | Key | Default | Extra          |
++----------------+-------------+------+-----+---------+----------------+
+| id             | int(11)     | NO   | PRI | NULL    | auto_increment |
+| First_Name     | varchar(30) | YES  |     | NULL    |                |
+| Last_Name      | varchar(30) | YES  |     | NULL    |                |
+| Yrs_Experience | int(11)     | YES  |     | NULL    |                |
+| Tenure         | tinyint(4)  | YES  |     | NULL    |                |
+| major_id       | int(11)     | YES  | MUL | NULL    |                |
++----------------+-------------+------+-----+---------+----------------+
+
+
+mysql> select * from instructor;
++----+------------+-----------+----------------+--------+----------+
+| id | First_Name | Last_Name | Yrs_Experience | Tenure | major_id |
++----+------------+-----------+----------------+--------+----------+
+|  1 | Art        | Modell    |             87 |      1 |        2 |
+|  2 | Steve      | Bisciotti |             56 |      1 |        4 |
+|  3 | Ozzie      | Newsome   |             60 |      1 |        6 |
+|  4 | Eric       | Decosta   |             45 |      1 |        5 |
+|  5 | Dick       | Cass      |             70 |      1 |        1 |
+|  6 | John       | Harbaugh  |             53 |      1 |        7 |
+|  7 | Pat        | Moriarity |             61 |      1 |        3 |
++----+------------+-----------+----------------+--------+----------+
+
+============================================================================
+============================================================================
+
+3.)mysql> explain class;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| id            | int(11)     | NO   | PRI | NULL    | auto_increment |
+| description   | varchar(30) | YES  |     | NULL    |                |
+| level         | int(11)     | YES  |     | NULL    |                |
+| instructor_id | int(11)     | YES  | MUL | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+
+
+mysql> select * from class;
++----+------------------+-------+---------------+
+| id | description      | level | instructor_id |
++----+------------------+-------+---------------+
+|  1 | English          |   101 |          NULL |
+|  2 | English          |   102 |          NULL |
+|  3 | English          |   103 |          NULL |
+|  4 | English          |   201 |          NULL |
+|  5 | English          |   202 |          NULL |
+|  6 | English          |   203 |          NULL |
+|  7 | English          |   301 |          NULL |
+|  8 | English          |   302 |          NULL |
+|  9 | English          |   303 |          NULL |
+| 19 | Math             |   201 |          NULL |
+| 20 | Math             |   202 |          NULL |
+| 21 | Math             |   203 |          NULL |
+| 22 | Math             |   204 |          NULL |
+| 23 | Math             |   301 |          NULL |
+| 24 | Math             |   302 |          NULL |
+| 25 | Math             |   303 |          NULL |
+| 26 | Math             |   304 |          NULL |
+| 27 | History          |   101 |          NULL |
+| 28 | History          |   201 |          NULL |
+| 29 | History          |   301 |          NULL |
+| 30 | Computer Science |   311 |          NULL |
+| 31 | Computer Science |   312 |          NULL |
+| 32 | Computer Science |   313 |          NULL |
+| 33 | Computer Science |   441 |          NULL |
+| 34 | Computer Science |   442 |          NULL |
+| 35 | Computer Science |   443 |          NULL |
+| 36 | Psychology       |   101 |          NULL |
+| 37 | Psychology       |   102 |          NULL |
+| 38 | Psychology       |   231 |          NULL |
+| 39 | Psychology       |   232 |          NULL |
+| 40 | Education        |   221 |          NULL |
+| 41 | Education        |   222 |          NULL |
+| 42 | Education        |   223 |          NULL |
+| 43 | Education        |   351 |          NULL |
+| 44 | Education        |   352 |          NULL |
+| 45 | Education        |   353 |          NULL |
++----+------------------+-------+---------------+
+
+
+=============================================================
+=============================================================
+
+4.) mysql> explain major_class_relationship;
++----------+---------+------+-----+---------+----------------+
+| Field    | Type    | Null | Key | Default | Extra          |
++----------+---------+------+-----+---------+----------------+
+| id       | int(11) | NO   | PRI | NULL    | auto_increment |
+| major_id | int(11) | NO   | MUL | NULL    |                |
+| class_id | int(11) | NO   | MUL | NULL    |                |
++----------+---------+------+-----+---------+----------------+
+
+mysql> select major.description, concat(class.description,cl
+    -> from major
+    -> join major_class_relationship
+    -> on major.id=major_class_relationship.major_id
+    -> join class
+    -> on class.id=major_class_relationship.class_id;
++-----------------+---------------------------------------+
+| description     | concat(class.description,class.level) |
++-----------------+---------------------------------------+
+| Education       | Education221                          |
+| Education       | Education222                          |
+| Education       | Education223                          |
+| Education       | Education351                          |
+| Education       | Education352                          |
+| Education       | Education353                          |
+| Accounting      | Math201                               |
+| Accounting      | Math202                               |
+| Accounting      | Math203                               |
+| Accounting      | Math204                               |
+| Accounting      | Math301                               |
+| Accounting      | Math302                               |
+| Accounting      | Math303                               |
+| Accounting      | Math304                               |
+| Finance         | Math201                               |
+| Finance         | Math202                               |
+| Finance         | Math203                               |
+| Finance         | Math204                               |
+| Finance         | Math301                               |
+| Finance         | Math302                               |
+| Finance         | Math303                               |
+| Finance         | Math304                               |
+| Math            | Math201                               |
+| Math            | Math202                               |
+| Math            | Math203                               |
+| Math            | Math204                               |
+| Math            | Math301                               |
+| Math            | Math302                               |
+| Math            | Math303                               |
+| Math            | Math304                               |
+| Engineering     | Computer Science311                   |
+| Engineering     | Computer Science312                   |
+| Engineering     | Computer Science313                   |
+| Engineering     | Computer Science441                   |
+| Engineering     | Computer Science442                   |
+| Engineering     | Computer Science443                   |
+| General Studies | English101                            |
+| General Studies | English102                            |
+| General Studies | English103                            |
+| General Studies | English201                            |
+| General Studies | English202                            |
+| General Studies | English203                            |
+| General Studies | English301                            |
+| General Studies | English302                            |
+| General Studies | English303                            |
+| General Studies | English303                            |
+| General Studies | History101                            |
+| General Studies | History201                            |
+| General Studies | History301                            |
+| General Studies | Psychology101                         |
+| General Studies | Psychology102                         |
+| General Studies | Psychology231                         |
+| General Studies | Psychology232                         |
++-----------------+---------------------------------------+
+
+
+===============================================================
+===============================================================
+
+5.) mysql> explain student_class_relationship;
++------------+---------+------+-----+---------+----------------+
+| Field      | Type    | Null | Key | Default | Extra          |
++------------+---------+------+-----+---------+----------------+
+| id         | int(11) | NO   | PRI | NULL    | auto_increment |
+| student_id | int(11) | NO   | MUL | NULL    |                |
+| class_id   | int(11) | NO   | MUL | NULL    |                |
++------------+---------+------+-----+---------+----------------+
+
+mysql> select concat(student.first_name,student.last_name), concat(class.descrip
+tion,class.level)
+    -> from student
+    -> join student_class_relationship
+    -> on student.id=student_class_relationship.student_id
+    -> join class
+    -> on class.id=student_class_relationship.class_id;
++----------------------------------------------+--------------------------------
+-------+
+| concat(student.first_name,student.last_name) | concat(class.description,class.
+level) |
++----------------------------------------------+--------------------------------
+-------+
+| RayLewis                                     | English303
+       |
+| RayLewis                                     | Math304
+       |
+| RayLewis                                     | History301
+       |
+| RayLewis                                     | Computer Science443
+       |
+| RayLewis                                     | Psychology232
+       |
+| RayLewis                                     | Education353
+       |
+| JonathanOgden                                | English303
+       |
+| JonathanOgden                                | Math304
+       |
+| JonathanOgden                                | History301
+       |
+| JonathanOgden                                | Computer Science443
+       |
+| JonathanOgden                                | Psychology232
+       |
+| JonathanOgden                                | Education353
+       |
+| MattStover                                   | Math201
+       |
+| MattStover                                   | Psychology101
+       |
+| MattStover                                   | Psychology102
+       |
+| EdReed                                       | History101
+       |
+| PeterBoulware                                | Math301
+       |
+| PeterBoulware                                | Math302
+       |
+| PeterBoulware                                | Computer Science311
+       |
+| PeterBoulware                                | Psychology101
+       |
+| MichaelMcCrary                               | Psychology101
+       |
+| MichaelMcCrary                               | Education221
+       |
+| MichaelMcCrary                               | Education222
+       |
+| MichaelMcCrary                               | Education223
+       |
+| MichaelMcCrary                               | Education351
+       |
+| MichaelMcCrary                               | Education352
+       |
+| ChrisMcAlister                               | History201
+       |
+| ChrisMcAlister                               | Computer Science313
+       |
+| ChrisMcAlister                               | Psychology232
+       |
+| HalotiNgata                                  | History101
+       |
+| HalotiNgata                                  | History201
+       |
+| HalotiNgata                                  | History301
+       |
+| HalotiNgata                                  | Psychology101
+       |
+| MarshalYanda                                 | Math201
+       |
+| MarshalYanda                                 | Math202
+       |
+| MarshalYanda                                 | Math203
+       |
+| MarshalYanda                                 | Math204
+       |
+| MarshalYanda                                 | Math301
+       |
+| MarshalYanda                                 | Math302
+       |
+| MarshalYanda                                 | Math303
+       |
+| MarshalYanda                                 | Math304
+       |
+| OJBrigance                                   | English303
+       |
+| OJBrigance                                   | Math304
+       |
+| OJBrigance                                   | History301
+       |
+| OJBrigance                                   | Computer Science443
+       |
+| OJBrigance                                   | Psychology232
+       |
+| OJBrigance                                   | Education353       |
++----------------------------------------------+---------------------------------------+
+
+=================================================================
+=================================================================
+
+6.) mysql> explain student;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| id         | int(11)      | NO   | PRI | NULL    |       |
+| first_name | varchar(30)  | NO   |     | NULL    |       |
+| last_name  | varchar(30)  | NO   |     | NULL    |       |
+| GPA        | decimal(5,1) | YES  |     | NULL    |       |
+| SAT        | int(11)      | YES  |     | NULL    |       |
+| major_id   | int(11)      | YES  | MUL | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+
+
+mysql> select * from student;
++-----+------------+-----------+------+------+----------+
+| id  | first_name | last_name | GPA  | SAT  | major_id |
++-----+------------+-----------+------+------+----------+
+| 100 | Ray        | Lewis     |  4.0 | 1600 |        6 |
+| 110 | Jonathan   | Ogden     |  4.0 | 1600 |        5 |
+| 120 | Matt       | Stover    |  4.0 | 1600 |        4 |
+| 130 | Ed         | Reed      |  3.5 | 1450 |        7 |
+| 140 | Peter      | Boulware  |  4.0 | 1500 |        3 |
+| 150 | Michael    | McCrary   |  3.2 | 1350 |        2 |
+| 160 | Chris      | McAlister |  3.8 | 1550 |        1 |
+| 170 | Haloti     | Ngata     |  3.0 | 1250 |        7 |
+| 180 | Marshal    | Yanda     |  4.0 | 1600 |        4 |
+| 190 | OJ         | Brigance  |  4.0 | 1600 |        6 |
++-----+------------+-----------+------+------+----------+
+
+
+=================================================================
+=================================================================
