@@ -1,0 +1,25 @@
+span { 
+	color: black;
+	font-weight: bold;
+}
+table, tr, td {
+	border: 2px solid purple;
+	margin-left: auto;
+	margin-right:auto;
+}
+div { width: 49%;
+	display: inline-Block;
+	text-align: center;
+	vertical-align: text-top;
+}
+.name{ color: black;
+font-weight: bold;}
+
+.supervisor{ color: red;
+}
+
+.employmentdate { font-style: italic;
+}
+
+img { width:100px;height:100px;
+}
