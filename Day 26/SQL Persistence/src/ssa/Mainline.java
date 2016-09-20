@@ -12,6 +12,8 @@ public class Mainline {
 		    Student aStudent = students.getById(170);
 		    System.out.println(aStudent); 
 		    
+		    System.out.println("======================================");
+		    
 		    ArrayList<Student> allStudents = students.getAll();
 		    for(Student student : allStudents) {
 		        System.out.println(student);

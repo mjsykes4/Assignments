@@ -31,7 +31,8 @@ public class Students extends HashMap {
 			student.setSat(myRs.getInt("sat"));
 			student.setGpa(myRs.getDouble("gpa"));
 			students.add(student);
-			return students;}
+	}
+			return students;
 			
 
 			
