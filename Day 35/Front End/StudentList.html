@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Consuming REST web service in Javascript</title>
+	<link src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			$.ajax({
+        		url: "http://localhost:8080/student"
+    		}).then(function(students) {
+    			
+    			console.log(students);
+    			for (var i=0; i <students.length; i ++) {
+    				var selectAStudent = $("<li><button type="delete" value="Delete">Delete</button>" + students[i].firstName + "	" + students[i].lastName + "	" + students[i].sat + "		" + students[i].gpa +"</li>")
+    				$("#Pub").append(selectAStudent);
+    			};
+    			console.log(students);
+    		});
+			
+
+
+		}); <!-- end ready -->
+
+	</script>
+</head>
+<h1>Simple Student Web App</h1>
+<body>
+<ul id="Pub">
+
+
+</ul>
+</body>
+</html>
