@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Welcome to Student</title>
+	
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	
+	<script src="http://code.jquery.com/jquery-3.1.0.min.js" type="text/javascript"></script>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js" type="text/javascript"></script>
+	
+	<script src="StudentPage.js" type="text/javascript"></script>
+	
+	<link rel="stylesheet" type="text/css" href="StudentPage.css"> 
+</head>
+<body>
+	<center><h1>Student List</h1></center>
+
+<center><div><form ng-app="myApp" ng-controller="validateCtrl"
+name="myForm" novalidate>
+
+<p>First Name:
+<input type="text" name="FirstName" ng-model="FirstName" required>
+<span style="color:red" ng-show="myForm.FirstName.$dirty && myForm.FirstName.$invalid">
+<span ng-show="myForm.FirstName.$error.required">This field is required.</span>
+</span></p>
+
+
+<p>Last Name:
+<input type="text" name="LastName" ng-model="LastName" required>
+<span style="color:red" ng-show="myForm.LastName.$dirty && myForm.LastName.$invalid">
+<span ng-show="myForm.LastName.$error.required">This field is required.</span>
+</span></p>
+
+<p>GPA:
+<input type="number" name="GPA" ng-model="GPA" required>
+<span style="color:red" ng-show="myForm.GPA.$dirty && myForm.GPA.$invalid">
+<span ng-show="myForm.GPA.$error.required">This field is required.</span>
+<span ng-show="myForm.GPA.$error.email">Invalid GPA.</span>
+</span></p>
+
+
+<p>SAT:
+<input type="number" name="SAT" ng-model="SAT" required>
+<span style="color:red" ng-show="myForm.SAT.$dirty && myForm.SAT.$invalid">
+<span ng-show="myForm.SAT.$error.required">This field is required.</span>
+<span ng-show="myForm.SAT.$error.SAT">Invalid SAT score.</span>
+</span></p>
+
+
+<p>
+<input type="submit"
+ng-disabled="myForm.user.$dirty && myForm.user.$invalid ||
+myForm.email.$dirty && myForm.email.$invalid">
+</p>
+
+</form></div></center>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('validateCtrl', function($scope) {
+    $scope.FirstName = 'Wayne';
+    $scope.LastName = 'Gretzky';
+	$scope.GPA = 4;
+	$scope.SAT = 1600;
+});
+</script>
+  	<center><button id="Refresh" ng-click="ctrl.Refresh();">Submit</button></center>
+</div>
+
+</script></center>
+</body>
+</html>
